@@ -1,16 +1,12 @@
 {
   "files": {
-    "main.css": "/water-reserve-rate-viewer/static/css/main.073c9b0a.css",
-    "main.js": "/water-reserve-rate-viewer/static/js/main.1592f4b4.js",
+    "main.js": "/water-reserve-rate-viewer/static/js/main.2368413f.js",
     "static/js/787.45cee6f6.chunk.js": "/water-reserve-rate-viewer/static/js/787.45cee6f6.chunk.js",
-    "static/media/logo.svg": "/water-reserve-rate-viewer/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/water-reserve-rate-viewer/index.html",
-    "main.073c9b0a.css.map": "/water-reserve-rate-viewer/static/css/main.073c9b0a.css.map",
-    "main.1592f4b4.js.map": "/water-reserve-rate-viewer/static/js/main.1592f4b4.js.map",
+    "main.2368413f.js.map": "/water-reserve-rate-viewer/static/js/main.2368413f.js.map",
     "787.45cee6f6.chunk.js.map": "/water-reserve-rate-viewer/static/js/787.45cee6f6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.1592f4b4.js"
+    "static/js/main.2368413f.js"
   ]
 }
