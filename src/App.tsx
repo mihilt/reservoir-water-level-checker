@@ -1,10 +1,6 @@
-import {
-  Container,
-  createTheme,
-  CssBaseline,
-  ThemeProvider,
-} from '@mui/material';
-import Header from './components/views/Header';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import Main from './components/views/Main/Main';
+import Header from './components/views/Header/Header';
 
 const theme = createTheme();
 
@@ -12,10 +8,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Header />
-        ㅎㅇ
-      </Container>
+      <Header />
+      <Main />
     </ThemeProvider>
   );
 }
