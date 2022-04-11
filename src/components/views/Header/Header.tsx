@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 
 function Header() {
   const clickHeader = () => {
-    window.location.href = '/';
+    window.location.href = '/water-reserve-rate-viewer';
   };
 
   return (

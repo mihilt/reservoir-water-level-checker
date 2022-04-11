@@ -1,24 +1,25 @@
 import axios from "axios";
 import qs from "qs";
+import { PROXY_URL } from "../config";
 
-export const getAllReservoirData = async () =>
-  await axios({
+export const getReservoirMetaDataList = () =>
+  axios({
     method: 'post',
-    url: 'https://rawris-am.ekr.or.kr/wrms/query/json?qid=rawris.wrms.gis.kgis_list_base_equip_r',
+    url: '/wrms/query/json?qid=rawris.wrms.gis.metagis_list_meas_reservoir',
   });
 
-
-export const getSpecificReservoirData = async (no: Number) =>
-  await axios({
+export const getReservoirData = (no: number) =>
+  axios({
     method: 'post',
-    url: 'https://rawris-am.ekr.or.kr/wrms/query/json?qid=rawris.wrms.gis.popup.view_info_reservoir',
+    url: '/wrms/query/json?qid=rawris.wrms.gis.popup.view_info_reservoir',
     data: qs.stringify({
       equip_no: no,
     }),
   });
 
-export const getAllReservoirMetaData = async () =>
-  await axios({
-    method: 'post',
-    url: 'https://rawris-am.ekr.or.kr/wrms/query/json?qid=rawris.wrms.gis.metagis_list_meas_reservoir',
-  });
+//something specific proxy server which i use it now need it..
+export const tempRequestForDemoProxy = () =>
+  axios({
+    method: 'get',
+    url: PROXY_URL
+  })

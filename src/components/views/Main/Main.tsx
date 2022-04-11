@@ -1,14 +1,50 @@
 import { useState } from 'react';
-import { Box, Paper } from '@mui/material';
+import { Box, CircularProgress, Paper } from '@mui/material';
 import Navigation from './Navigation/Navigation';
 import Content from './Content/Content';
+import { useEffect } from 'react';
+import {
+  getReservoirMetaDataList,
+  tempRequestForDemoProxy,
+} from '../../../utils/api';
+import { ReservoirMetaData } from '../../../interfaces';
 
 function Main() {
   const [navValue, setNavValue] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [sortedReservoirMetaDataList, setSortedReservoirMetaDataList] =
+    useState([]);
+
+  useEffect(() => {
+    (async function (): Promise<void> {
+      setIsLoading(true);
+      //something specific proxy server which i use it now need it..
+      await tempRequestForDemoProxy();
+      const reservoirMetaDataList = await getReservoirMetaDataList();
+      setIsLoading(false);
+      setSortedReservoirMetaDataList(
+        reservoirMetaDataList.data.sort(
+          (a: ReservoirMetaData, b: ReservoirMetaData) =>
+            a.equip_name > b.equip_name ? 1 : -1
+        )
+      );
+    })();
+  }, []);
+
   return (
     <Box sx={{ py: 7.5, px: 1 }}>
-      <Content navValue={navValue} />
+      {isLoading ? (
+        <Box sx={{ textAlign: 'center', pt: 35 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Content
+          navValue={navValue}
+          sortedReservoirMetaDataList={sortedReservoirMetaDataList}
+        />
+      )}
+
       <Paper
         sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
         elevation={3}

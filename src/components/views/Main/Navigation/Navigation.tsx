@@ -4,7 +4,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 
 interface MainProps {
-  navValue: Number;
+  navValue: number;
   setNavValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
