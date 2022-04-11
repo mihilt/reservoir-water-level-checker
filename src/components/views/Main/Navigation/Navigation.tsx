@@ -17,8 +17,7 @@ function Navigation(props: MainProps) {
       value={navValue}
       onChange={(event, newValue) => {
         setNavValue(newValue);
-      }}
-    >
+      }}>
       <BottomNavigationAction icon={<HomeIcon />} />
       <BottomNavigationAction icon={<SettingsIcon />} />
       <BottomNavigationAction icon={<InfoIcon />} />

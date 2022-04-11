@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { ReservoirMetaData } from '../../../../../interfaces';
 import { getSelectedReservoirEquipNoList } from '../../../../../utils/utils';
+import DetailModal from '../../../../items/DetailModal';
 import ReservoirCard from '../../../../items/ReservoirCard';
 
 interface HomeProps {
@@ -11,6 +12,9 @@ interface HomeProps {
 
 function Home(props: HomeProps) {
   const { sortedReservoirMetaDataList, setNavValue } = props;
+
+  const [openModal, setOpenModal] = useState(false);
+  const [modalEquipNo, setModalEquipNo] = useState<number>();
 
   const [selectedReservoirMetaDataList, setSelectedReservoirMetaDataList] = useState<
     ReservoirMetaData[]
@@ -28,12 +32,18 @@ function Home(props: HomeProps) {
     setNavValue(1);
   };
 
+  const openDetailModal = (equipNo: number) => {
+    setOpenModal(true);
+    setModalEquipNo(equipNo);
+  };
+
   return (
     <>
       {selectedReservoirMetaDataList.length === 0 ? (
         <Box sx={{ pt: 5, textAlign: 'center', caretColor: 'transparent' }}>
           <Box sx={{ fontSize: 18 }}>You haven't registered reservoirs yet.</Box>
           <Button
+            color='deepBlue'
             variant='contained'
             sx={{
               fontSize: 15,
@@ -47,9 +57,19 @@ function Home(props: HomeProps) {
         </Box>
       ) : (
         selectedReservoirMetaDataList.map((e) => (
-          <ReservoirCard key={e.equip_no} name={e.equip_name} ratio={e.cr_ratio} />
+          <React.Fragment key={e.equip_no}>
+            <Box sx={{ cursor: 'pointer' }}>
+              <ReservoirCard
+                name={e.equip_name}
+                ratio={e.cr_ratio}
+                equipNo={e.equip_no}
+                openDetailModal={openDetailModal}
+              />
+            </Box>
+          </React.Fragment>
         ))
       )}
+      <DetailModal openModal={openModal} setOpenModal={setOpenModal} modalEquipNo={modalEquipNo} />
     </>
   );
 }

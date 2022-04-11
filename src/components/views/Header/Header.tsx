@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { AppBar, Box } from '@mui/material';
 
 function Header() {
   const clickHeader = () => {
@@ -6,13 +6,12 @@ function Header() {
   };
 
   return (
-    <Box
+    <AppBar
       sx={{
         position: 'fixed',
         width: '100%',
         backgroundColor: '#FFFFFF',
-        cursor: 'pointer',
-        zIndex: 2147483647
+        cursor: 'pointer'
       }}
       onClick={clickHeader}>
       <Box
@@ -32,7 +31,7 @@ function Header() {
           alt='logo'
         />
       </Box>
-    </Box>
+    </AppBar>
   );
 }
 

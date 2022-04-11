@@ -1,8 +1,7 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import Main from './components/views/Main/Main';
 import Header from './components/views/Header/Header';
-
-const theme = createTheme();
+import theme from './app/theme';
 
 function App() {
   return (
