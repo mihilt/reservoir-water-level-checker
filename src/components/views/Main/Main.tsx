@@ -33,7 +33,7 @@ function Main() {
   }, []);
 
   return (
-    <Box sx={{ py: 7.5, px: 1 }}>
+    <Box sx={{ py: 8, px: 2 }}>
       {isLoading ? (
         <Box sx={{ textAlign: 'center', pt: 35 }}>
           <CircularProgress />
@@ -41,6 +41,7 @@ function Main() {
       ) : (
         <Content
           navValue={navValue}
+          setNavValue={setNavValue}
           sortedReservoirMetaDataList={sortedReservoirMetaDataList}
         />
       )}

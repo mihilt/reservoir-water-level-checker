@@ -6,34 +6,33 @@ function Header() {
   };
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         position: 'fixed',
         width: '100%',
         backgroundColor: '#FFFFFF',
         cursor: 'pointer',
+        zIndex: 2147483647
       }}
-      onClick={clickHeader}
-    >
+      onClick={clickHeader}>
       <Box
         sx={{
           borderBottom: 1,
           borderColor: '#EEEEEE',
           caretColor: 'transparent',
-          textAlign: 'center',
-        }}
-      >
+          textAlign: 'center'
+        }}>
         <img
           src={process.env.PUBLIC_URL + '/images/logo.png'}
           style={{
             height: '55px',
             padding: '5px',
-            verticalAlign: 'top',
+            verticalAlign: 'top'
           }}
-          alt="logo"
+          alt='logo'
         />
       </Box>
-    </div>
+    </Box>
   );
 }
 

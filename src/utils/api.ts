@@ -1,6 +1,6 @@
-import axios from "axios";
-import qs from "qs";
-import { PROXY_URL } from "../config";
+import axios from 'axios';
+import qs from 'qs';
+import { PROXY_URL } from '../config';
 
 export const getReservoirMetaDataList = () =>
   axios({

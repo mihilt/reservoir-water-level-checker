@@ -5,18 +5,22 @@ import Settings from './contents/Settings';
 
 interface ContentProps {
   navValue: number;
+  setNavValue: React.Dispatch<React.SetStateAction<number>>;
   sortedReservoirMetaDataList: ReservoirMetaData[];
 }
 
 function Content(props: ContentProps) {
-  const { navValue, sortedReservoirMetaDataList } = props;
+  const { navValue, sortedReservoirMetaDataList, setNavValue } = props;
 
   let content;
 
   switch (navValue) {
     case 0:
       content = (
-        <Home sortedReservoirMetaDataList={sortedReservoirMetaDataList} />
+        <Home
+          sortedReservoirMetaDataList={sortedReservoirMetaDataList}
+          setNavValue={setNavValue}
+        />
       );
       break;
     case 1:
