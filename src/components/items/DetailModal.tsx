@@ -1,7 +1,9 @@
-import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
+import { Backdrop, Box, Fade, Modal, Typography, CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { getReservoirData } from '../../utils/api';
+import { ReservoirData } from '../../interfaces';
 
 interface DetailModalProps {
   openModal: boolean;
@@ -11,9 +13,22 @@ interface DetailModalProps {
 
 function DetailModal(props: DetailModalProps) {
   const { openModal, setOpenModal, modalEquipNo } = props;
+
+  const [reservoirData, setReservoirData] = useState<ReservoirData>();
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleClose = () => setOpenModal(false);
+
   useEffect((): void => {
-    debugger;
+    setIsLoading(true);
+    (async () => {
+      if (modalEquipNo === undefined) {
+        return;
+      }
+      const reservoirDataResult = await getReservoirData(modalEquipNo);
+      setReservoirData(reservoirDataResult.data[0]);
+      setIsLoading(false);
+    })();
   }, [modalEquipNo]);
 
   return (
@@ -31,7 +46,7 @@ function DetailModal(props: DetailModalProps) {
         <Fade in={openModal}>
           <Box
             sx={{
-              width: '300px',
+              width: '400px',
               position: 'absolute' as 'absolute',
               top: '50%',
               left: '50%',
@@ -45,13 +60,27 @@ function DetailModal(props: DetailModalProps) {
               sx={{ cursor: 'pointer', position: 'absolute', top: '15px', right: '15px' }}
               onClick={handleClose}
             />
-            <Typography variant='h6' component='h2'>
-              Text in a modal
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-            <Typography sx={{ mt: 2 }}>{modalEquipNo}</Typography>
+            {isLoading ? (
+              <Box sx={{ textAlign: 'center' }}>
+                <CircularProgress sx={{ my: 10 }} />
+              </Box>
+            ) : (
+              <>
+                {' '}
+                <Typography sx={{ textAlign: 'center' }} variant='h6' component='h2'>
+                  {reservoirData?.equip_name}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  소재지 - {reservoirData?.equip_addr1} {reservoirData?.equip_addr2}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  관할지사 - {reservoirData?.buseo_head_name} {reservoirData?.buseo_branch_name}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>금일 저수율 - {reservoirData?.now_rate}%</Typography>
+                <Typography sx={{ mt: 2 }}>전일 저수율 - {reservoirData?.yday_rate}%</Typography>
+                <Typography sx={{ mt: 2 }}>기준일시 - {reservoirData?.now_date}</Typography>
+              </>
+            )}
           </Box>
         </Fade>
       </Modal>

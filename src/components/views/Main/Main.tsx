@@ -3,7 +3,7 @@ import { Box, CircularProgress, Paper } from '@mui/material';
 import Navigation from './Navigation/Navigation';
 import Content from './Content/Content';
 import { useEffect } from 'react';
-import { getReservoirMetaDataList, tempRequestForDemoProxy } from '../../../utils/api';
+import { getReservoirMetaDataList } from '../../../utils/api';
 import { ReservoirMetaData } from '../../../interfaces';
 
 function Main() {
@@ -15,8 +15,6 @@ function Main() {
   useEffect(() => {
     (async function (): Promise<void> {
       setIsLoading(true);
-      //something specific proxy server which i use it now need it..
-      await tempRequestForDemoProxy();
       const reservoirMetaDataList = await getReservoirMetaDataList();
       setIsLoading(false);
       setSortedReservoirMetaDataList(

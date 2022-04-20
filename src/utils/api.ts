@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-import { PROXY_URL } from '../config';
 
 export const getReservoirMetaDataList = () =>
   axios({
@@ -16,10 +15,3 @@ export const getReservoirData = (no: number) =>
       equip_no: no,
     }),
   });
-
-//something specific proxy server which i use it now need it..
-export const tempRequestForDemoProxy = () =>
-  axios({
-    method: 'get',
-    url: PROXY_URL
-  })
