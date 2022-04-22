@@ -1,4 +1,4 @@
-import { Backdrop, Box, Fade, Modal, Typography, CircularProgress } from '@mui/material';
+import { Backdrop, Box, Fade, Modal, Typography, CircularProgress, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useEffect, useState } from 'react';
@@ -44,15 +44,13 @@ function DetailModal(props: DetailModalProps) {
           timeout: 500
         }}>
         <Fade in={openModal}>
-          <Box
+          <Paper
             sx={{
-              width: '400px',
+              width: '300px',
               position: 'absolute' as 'absolute',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
               boxShadow: 24,
               p: 4
             }}>
@@ -66,7 +64,6 @@ function DetailModal(props: DetailModalProps) {
               </Box>
             ) : (
               <>
-                {' '}
                 <Typography sx={{ textAlign: 'center' }} variant='h6' component='h2'>
                   {reservoirData?.equip_name}
                 </Typography>
@@ -81,7 +78,7 @@ function DetailModal(props: DetailModalProps) {
                 <Typography sx={{ mt: 2 }}>기준일시 - {reservoirData?.now_date}</Typography>
               </>
             )}
-          </Box>
+          </Paper>
         </Fade>
       </Modal>
     </>

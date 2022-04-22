@@ -1,21 +1,34 @@
 import { useState } from 'react';
-import { Box, CircularProgress, Paper } from '@mui/material';
-import Navigation from './Navigation/Navigation';
+import { Box, CircularProgress } from '@mui/material';
 import Content from './Content/Content';
 import { useEffect } from 'react';
 import { getReservoirMetaDataList } from '../../../utils/api';
 import { ReservoirMetaData } from '../../../interfaces';
 
-function Main() {
-  const [navValue, setNavValue] = useState(0);
+interface MainProps {
+  navValue: number;
+  setNavValue: React.Dispatch<React.SetStateAction<number>>;
+}
+
+function Main(props: MainProps) {
+  const { navValue, setNavValue } = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const [sortedReservoirMetaDataList, setSortedReservoirMetaDataList] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     (async function (): Promise<void> {
       setIsLoading(true);
-      const reservoirMetaDataList = await getReservoirMetaDataList();
+      let reservoirMetaDataList;
+      try {
+        reservoirMetaDataList = await getReservoirMetaDataList();
+      } catch (e) {
+        console.log(`ERROR: ${e}`);
+        setIsLoading(false);
+        setIsError(true);
+        return;
+      }
       setIsLoading(false);
       setSortedReservoirMetaDataList(
         reservoirMetaDataList.data.sort((a: ReservoirMetaData, b: ReservoirMetaData) =>
@@ -26,23 +39,28 @@ function Main() {
   }, []);
 
   return (
-    <Box sx={{ py: 8, px: 2 }}>
-      {isLoading ? (
-        <Box sx={{ textAlign: 'center', pt: 35 }}>
-          <CircularProgress sx={{ color: '#184A7A' }} />
-        </Box>
-      ) : (
-        <Content
-          navValue={navValue}
-          setNavValue={setNavValue}
-          sortedReservoirMetaDataList={sortedReservoirMetaDataList}
-        />
-      )}
-
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-        <Navigation navValue={navValue} setNavValue={setNavValue} />
-      </Paper>
-    </Box>
+    <>
+      <Box sx={{ py: 8, px: 2 }}>
+        {navValue !== 2 && isLoading ? (
+          <Box
+            sx={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)'
+            }}>
+            <CircularProgress sx={{ color: '#184A7A' }} />
+          </Box>
+        ) : (
+          <Content
+            navValue={navValue}
+            setNavValue={setNavValue}
+            sortedReservoirMetaDataList={sortedReservoirMetaDataList}
+            isError={isError}
+          />
+        )}
+      </Box>
+    </>
   );
 }
 
