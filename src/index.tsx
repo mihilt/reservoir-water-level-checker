@@ -2,10 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { BASE_URL, PROXY_URL } from './config';
 import reportWebVitals from './reportWebVitals';
 
-axios.defaults.baseURL = PROXY_URL + BASE_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 ReactDOM.render(
   <React.StrictMode>
